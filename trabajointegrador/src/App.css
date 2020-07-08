@@ -1,5 +1,6 @@
-.App {
-  text-align: center;
+.App-container {
+  margin-top: 10px;
+  text-align: justify;
 }
 
 /* .App-logo {
@@ -19,14 +20,17 @@
 } */
 
  .App-header {
+  padding-top: 10px;
   background-color: #282c34;
   min-height: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  display: grid;
+  justify-content: space-evenly;
 } 
+
+  .App-bottom {
+  margin-top: 5px;
+  align-self: auto;
+  }
 
 /* .App-link {
   color: #61dafb;
@@ -42,60 +46,84 @@
 } */
 
 .container {
-  margin-top:100px;
   min-width: 450px;
+  padding-block-start:20px;
+  margin: 15px;
 }
 
 .row {
   justify-content: center;
+  margin: 0px;
 } 
 
 .col-auto{
   text-align: center;
-  padding-block-start:60px;
   font-size: 25px;
   font-weight: bold;
+  margin: 0px;
+
 }
 
 .cuadro {
-  height: 150px;
+  height: 110px;
   width: 150px;
-  opacity: 75%;
-  transition: opacity 1000ms;
+  filter: opacity(75%);
+  transition: all 1000ms;
+  padding-top: 40px;
+  margin: 0px;
+  margin-block-end: 30px;
+  box-shadow: 22px 31px 15px -8px rgba(0,0,0,0.19);
+  cursor: pointer;
+  border-radius: 50%;
 }
 
+.cuadro:hover{
+transform:scale(1.5);
+filter: none;
+}
+
+.cuadroNone {
+  height: 120px;
+  width: 120px;
+  /* opacity: 75%;
+  transition: opacity 1000ms;
+  padding-top: 55px;
+  margin: 0px;
+  margin-block-start: 0px; */
+}
+/* 
 #cuadro1 {
   background-color: lawngreen;
-}
+} */
 
-#cuadro2 {
+#Tijera {
   background-color:lightcoral;
 }
-
+/* 
 #cuadro3 {
   background-color:lightseagreen ;
-}
+} */
 
-#cuadro4 {
+#Spock {
   background-color:mediumorchid;
 }
-
+/* 
 #cuadro5 {
   background-color:orangered;
-}
+} */
 
-#cuadro6 {
+#Papel {
   background-color:slateblue;
 }
 
-#cuadro7 {
+#Lagarto {
   background-color:tomato;
 }
-
+/* 
 #cuadro8 {
   background-color:yellow;
-}
+} */
 
-#cuadro9 {
+#Piedra {
   background-color:turquoise;
 }
