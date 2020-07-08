@@ -1,16 +1,11 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// // import foto1 from './images/1.png'
-// // import foto2 from './images/2.png'
-// // import foto3 from './images/3.png'
-// // import foto4 from './images/4.png'
-// // import foto5 from './images/5.png'
-// // import foto6 from './images/6.png'
-// // import foto7 from './images/7.png'
-// // import foto8 from './images/8.png'
-// // import foto9 from './images/9.png'
-
+import piedra from './images/piedra.png'
+import papel from './images/papel.png'
+import spock from './images/spock.png'
+import tijera from './images/tijera.png'
+import lagarto from './images/lagarto.png'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,8 +13,10 @@ class App extends React.Component {
     this.state = {
       userselection: undefined,
       machineselection: undefined,
-      lastResult: undefined,
+      lastResult: "Elige una opción",
       round: 0,
+      win: 0,
+      lose: 0,
       options: ['Tijera', 'Papel', 'Piedra', 'Lagarto', 'Spock'],
     };
   }
@@ -30,14 +27,21 @@ class App extends React.Component {
     this.setState({ userselection: undefined });
     this.setState({ machineselection: undefined });
     this.setState({ round: 0 });
-    this.setState({ lastResult: undefined})
+    this.setState({ win: 0 });
+    this.setState({ lose: 0 });
+    this.setState({ lastResult: "Volvamos a contar" })
     console.log(this.state.round);
   }
 
   startMachinePlay = () => {
-    let roundPlus = this.state.round;
-    this.setState({ round: roundPlus++ });
+    let round = this.state.round;
+    round++
+    this.setState({ round });
     this.waitingMachine();
+  }
+
+  showStadistics = () => {
+    return ("Ronda n° " + this.state.round + "    Ganaste: " + this.state.win + "    Perdiste: " + this.state.lose);
   }
 
   checkResult = () => {
@@ -56,19 +60,25 @@ class App extends React.Component {
     }
   }
   humanLost = (userSel, machSel) => {
-    this.setState({ lastResult: userSel+" "+machSel+" "+"perdiste, proba otra vez!" });
+    let lose = this.state.lose;
+    lose++
+    this.setState({ lose });
+    this.setState({ lastResult: userSel + " contra " + machSel + ".  " + "Perdiste, probá otra vez!" });
   }
 
   humnaWin = (userSel, machSel) => {
-    this.setState({ lastResult: userSel+" "+machSel+" "+"bravo, ganaste!" });
+    let win = this.state.win;
+    win++
+    this.setState({ win });
+    this.setState({ lastResult: userSel + " contra " + machSel + ".  " + "Bravo, ganaste!" });
   }
 
   tiedGame = (userSel, machSel) => {
-    this.setState({ lastResult: userSel+" "+machSel+" "+"empate, han elegido el mismo elemento!" });
+    this.setState({ lastResult: userSel + " contra " + machSel + ".  " + "Ouch se produjo un empate!" });
   }
 
   waitingMachine = () => {
-    this.setState({ lastResult: "momento, la maquina esta decidiendo!" });
+    this.setState({ lastResult: "Momento...  la maquina esta decidiendo!" });
     this.machineDoSelection();
     setTimeout(() => {
       this.checkResult();
@@ -106,21 +116,22 @@ class App extends React.Component {
     return (
       <div className="App-container">
         <header className="App-header">
+          <div className="row" id="header-text">
+            <h2 className="text-success">Piedra, Papel, Tijera, Lagarto o Spock </h2>
+          </div>
           <div className="row">
-            <div className="col-auto">
-              <h1 className="text-success">Piedra, Papel, Tijera, Lagarto o Spock </h1>
-            </div>
+            <h5 className="alert alert-warning"> {this.state.lastResult} </h5>
           </div>
         </header>
         <body className="App-body">
           <div className="container">
             <div className="row">
+              {/* <div className="col-auto">
+              <h1 className="text-success"> {this.state.lastResult} </h1>
+                {/* <img src={foto1} alt=""></img> }
+              </div> */}
               <div className="col-auto">
-                <div className="cuadroNone" id="cuadro1"></div>
-                {/* <img src={foto1} alt=""></img> */}
-              </div>
-              <div className="col-auto">
-                <div className="cuadro" id="Tijera" onClick={(event) => this.userDoSelection(event)}>TIJERA</div>
+                <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onClick={(event) => this.userDoSelection(event)} />
                 {/* <p className="text-primary" id="2">TIJERA</p> */}
                 {/* <img src={foto2} alt="TIJERA"></img> */}
               </div>
@@ -131,8 +142,8 @@ class App extends React.Component {
             </div>
             <div className="row">
               <div className="col-auto">
-                <p className="text-secondary" id="4"></p>
-                <div className="cuadro" id="Spock" onClick={(event) => this.userDoSelection(event)}>SPOCK</div>
+                {/* <p className="text-secondary" id="4"></p> */}
+                <img src={spock} alt="SPOCK" className="cuadro" id="Spock" onClick={(event) => this.userDoSelection(event)} />
                 {/* <p className="text-secondary" id="4">SPOCK</p> */}
                 {/* <img src={foto4} alt="SPOCK"></img> */}
               </div>
@@ -141,34 +152,36 @@ class App extends React.Component {
                 {/* <img src={foto5} alt="-"></img> */}
               </div>
               <div className="col-auto">
-                <div className="cuadro" id="Papel" onClick={(event) => this.userDoSelection(event)}>PAPEL</div>
+                <img src={papel} alt="PAPEL" className="cuadro" id="Papel" onClick={(event) => this.userDoSelection(event)} />
                 {/* <p className="text-success" id="6"></p> */}
                 {/* <img src={foto6} alt="PAPEL"></img> */}
               </div>
             </div>
             <div className="row">
               <div className="col-auto">
-                <div className="cuadro" id="Lagarto" onClick={(event) => this.userDoSelection(event)}>LAGARTO</div>
+                <img src={lagarto} alt="LAGARTO" className="cuadro" id="Lagarto" onClick={(event) => this.userDoSelection(event)} />
                 {/* <p className="text-danger" id="7"></p> */}
                 {/* <img src={foto7} alt="LAGARTO"></img> */}
               </div>
               {/* <div className="col-auto">
                 <div className="cuadroNone" id="cuadro8"></div>
                 { <img src={foto8} alt=""></img> }
+         <img src="./img/add.svg" alt="add new note" className="icon--add" onClick={this.openModal} />
+
               </div> 
               */}
               <div className="col-auto">
-                <div className="cuadro" id="Piedra" onClick={(event) => this.userDoSelection(event)}>PIEDRA</div>
+                <img src={piedra} alt="PIEDRA" className="cuadro" id="Piedra" onClick={(event) => this.userDoSelection(event)} />
                 {/* <p className="text-warning" id="9"></p> */}
                 {/* <img src={foto9} alt="PIEDRA"></img> */}
               </div>
             </div>
           </div>
         </body>
-        <div className="App-bottom">
+        <div className="App-bottom" id="botom-text">
           <div className="row">
             <div className="col-auto">
-              <h1 className="text-success"> {this.state.lastResult} </h1>
+              <h1 className="text-success"> {this.showStadistics()} </h1>
             </div>
             <div className="col-auto">
               {/*<div key={c} className={`color color--${c}`} onClick={() => this.setState({ color: c })}>  como se hace onClick*/}
