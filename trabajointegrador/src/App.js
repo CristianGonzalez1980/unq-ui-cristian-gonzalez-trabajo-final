@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import piedra from './images/piedra.png'
-import papel from './images/papel.png'
-import spock from './images/spock.png'
-import tijera from './images/tijera.png'
-import lagarto from './images/lagarto.png'
+import piedra from './images/piedra.png';
+import papel from './images/papel.png';
+import spock from './images/spock.png';
+import tijera from './images/tijera.png';
+import lagarto from './images/lagarto.png';
 
 class App extends React.Component {
   constructor(props) {
@@ -96,63 +96,54 @@ class App extends React.Component {
   userDoSelection = event => {
     const userselection = event.target.id
     this.setState({ userselection });
-    this.blockInputUser();
     this.startMachinePlay();
-  }
-
-  blockInputUser = () => {
-    // document.querySelectorAll('.cuadro').forEach(function ($cuadro) {    desactivar botones
-    //   $cuadro.onclick = function () {
-    //   };
-    // });
   }
 
   render() {
     return (
-      <div className="App-container">
-        <header className="App-header">
-          {/* <div className="row"> */}
+      <div className="App-super">
+        <div className="App-container">
+          <header className="App-header">
             <h5 className="alert alert-warning"> {this.state.lastResult} </h5>
-          {/* </div> */}
-        </header>
-        <body className="App-body">
-          <div className="container">
+          </header>
+          <body className="App-body">
+            <div className="container">
+              <div className="row">
+                <div className="col-auto">
+                  <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onClick={(event) => this.userDoSelection(event)} />
+                </div>
+                <div className="col-autoNone">
+
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-auto">
+                  <img src={spock} alt="SPOCK" className="cuadro" id="Spock" onClick={(event) => this.userDoSelection(event)} />
+                </div>
+                <div className="col-auto">
+                </div>
+                <div className="col-auto">
+                  <img src={papel} alt="PAPEL" className="cuadro" id="Papel" onClick={(event) => this.userDoSelection(event)} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-auto">
+                  <img src={lagarto} alt="LAGARTO" className="cuadro" id="Lagarto" onClick={(event) => this.userDoSelection(event)} />
+                </div>
+                <div className="col-auto">
+                  <img src={piedra} alt="PIEDRA" className="cuadro" id="Piedra" onClick={(event) => this.userDoSelection(event)} />
+                </div>
+              </div>
+            </div>
+          </body>
+          <div className="App-bottom" id="botom-text">
             <div className="row">
               <div className="col-auto">
-                <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onClick={(event) => this.userDoSelection(event)} />
-              </div>
-              <div className="col-autoNone">
-                <div className="cuadroNone" id="cuadro3"></div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-auto">
-                <img src={spock} alt="SPOCK" className="cuadro" id="Spock" onClick={(event) => this.userDoSelection(event)} />
+                <h1 className="text-success"> {this.showStadistics()} </h1>
               </div>
               <div className="col-auto">
-                <div className="cuadroNone" id="cuadro5"></div>
+                <button type="button" className="btn btn-primary" onClick={() => this.resetGame()}>Reiniciar Marcador</button>
               </div>
-              <div className="col-auto">
-                <img src={papel} alt="PAPEL" className="cuadro" id="Papel" onClick={(event) => this.userDoSelection(event)} />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-auto">
-                <img src={lagarto} alt="LAGARTO" className="cuadro" id="Lagarto" onClick={(event) => this.userDoSelection(event)} />
-              </div>
-              <div className="col-auto">
-                <img src={piedra} alt="PIEDRA" className="cuadro" id="Piedra" onClick={(event) => this.userDoSelection(event)} />
-              </div>
-            </div>
-          </div>
-        </body>
-        <div className="App-bottom" id="botom-text">
-          <div className="row">
-            <div className="col-auto">
-              <h1 className="text-success"> {this.showStadistics()} </h1>
-            </div>
-            <div className="col-auto">
-              <button type="button" className="btn btn-primary" onClick={() => this.resetGame()}>Reiniciar Marcador</button>
             </div>
           </div>
         </div>
