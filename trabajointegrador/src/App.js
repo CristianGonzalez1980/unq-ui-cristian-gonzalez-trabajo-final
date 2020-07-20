@@ -17,6 +17,7 @@ class App extends React.Component {
       round: 0,
       win: 0,
       lose: 0,
+      showText: false,
       options: ['Piedra', 'Papel', 'Tijera', 'Lagarto', 'Spock'],
     };
   }
@@ -109,8 +110,17 @@ class App extends React.Component {
           <body className="App-body">
             <div className="container">
               <div className="row">
+                <div className="col-sel">
+                {this.state.showText && (
+                    <div className="selText">
+                      Tijera
+                    </div>
+                  )}
+                </div>
                 <div className="col-auto">
-                  <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onClick={(event) => this.userDoSelection(event)} />
+                  <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onMouseEnter={() => this.setState({ showText: true })}
+                    onMouseLeave={() => this.setState({ showText: false })} onClick={(event) => this.userDoSelection(event)} />
+
                 </div>
                 <div className="col-autoNone">
 

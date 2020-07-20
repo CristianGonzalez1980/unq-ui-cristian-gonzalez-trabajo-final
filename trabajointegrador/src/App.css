@@ -86,3 +86,16 @@ filter: none;
 #Piedra {
   background-color:turquoise;
 }
+
+.selText {
+  text-align: left;
+  font-weight: bold;
+  font-size: 16;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+.col-sel{
+align-items: flex-start;
+
+}
