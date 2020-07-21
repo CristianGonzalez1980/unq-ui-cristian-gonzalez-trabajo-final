@@ -181,7 +181,7 @@ class App extends React.Component {
                     {this.state.showButton && <button type="button" className="btn-danger" onClick={() => this.newGame()}>Jugar</button>}
                   </div>
                   <div>
-                    {this.state.showAlert && <h5 id="msg" className="alert alert-warning"> {this.state.lastResult} </h5>}
+                    {this.state.showAlert && <h6 id="msg" className="alert alert-warning"> {this.state.lastResult} </h6>}
                   </div>
                 </div>
                 <div className="col-3-9">
