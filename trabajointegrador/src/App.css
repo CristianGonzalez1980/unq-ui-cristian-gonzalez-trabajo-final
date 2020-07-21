@@ -1,42 +1,49 @@
 .App-super {
-  position: fixed;
+  position: absolute;
   background-color: rgba(0, 0, 0, .7);
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 640px;
   display: flex;
   justify-content: center;
-}
-
-.App-container {
-  margin-top: 5px;
-  text-align: justify;
+  background-image: url(./images/fondo-blanco.jpg);
 }
 
  .App-header {
   background-color: #282c34;
   justify-content: center;
-  padding-top: 7px;
-  min-height: 60px;
+  padding-top: 10px;
+  height: 75px;
   display: grid;
 } 
 
-  .App-bottom {
-  margin-top: 1px;
+.welcome{
+  color: bisque;
+  font-weight: bold;
+  text-shadow: chartreuse;
+  font-size: 18px;
+}
+
+.App-bottom {
+  margin-top: 10px;
   align-self: auto;
 }
 
 .container {
-  width: 370px;
-  height: 490px;
-  padding-block-start:25px;
+  min-height: 450px;
+  min-width: 450px;
+  padding-block-start:10px;
+  background-image: url(./images/fondo-blanco2.png);
+  
 }
 
 .row {
-justify-content:space-around;
-padding: 5px;
+  justify-content:space-around;
+  height: 30px;
 } 
+
+.bar-sel {
+  margin-bottom: 10px;
+}
 
 .text-success{
   padding: 7px;
@@ -52,39 +59,39 @@ padding: 5px;
 }
 
 .cuadro {
-  height: 110px;
-  column-width: 33%;
-  filter: opacity(65%);
+  height: 70%;
+  column-width: 30%;
+  filter: opacity(55%);
   transition: all 300ms;
-  margin-block-end: 40px;
+  padding: 10px;
   box-shadow: 22px 31px 15px -8px rgba(0,0,0,0.19);
   cursor: pointer;
   border-radius: 100%;
 }
 
 .cuadro:hover{
-transform:scale(1.4);
-filter: none;
+  transform:scale(1.4);
+  filter: none;
 }
 
 #Tijera {
-  background-color:rgb(252, 255, 59);
+background-color:rgb(252, 255, 59);
 }
 
 #Spock {
-  background-color:mediumorchid;
+background-color:mediumorchid;
 }
 
 #Papel {
-  background-color:slateblue;
+background-color:slateblue;
 }
 
 #Lagarto {
-  background-color:tomato;
+background-color:tomato;
 }
 
 #Piedra {
-  background-color:turquoise;
+background-color:turquoise;
 }
 
 .selText {
@@ -100,7 +107,9 @@ background-color: lawngreen;
 border-radius: 7%;
 opacity: 85%;
 margin-left: 2px;
-column-width: 33%;
+column-width: 50%;
+padding-left: 1px;
+padding-right: 1px;
 }
 
 #cpu{
@@ -109,31 +118,62 @@ background-color:rgb(248, 47, 158);
 border-radius: 7%;
 opacity: 85%;
 margin-right: 2px;
-column-width: 33%;
+column-width: 50%;
+padding-left: 1px;
+padding-right: 1px;
 }
 
 .btn-danger{
-  text-align:start;
-  height: 50px;
-  width: 60px;
+  margin-top: 70px;
+  text-align:center;
+  height: 200px;
+  width: 240px;
   border-radius: 50%;
+  font-weight: bold;
+  font-size: 80px;
+  box-shadow: 10px 10px 20px -1px rgba(192, 22, 22, 0.19);
+}
+
+.btn-reset{
+  text-align:center;
+  height: 30px;
+  width: 155px;
+  border-radius: 5%;
+  background-color:rgb(30, 200, 158);
+  font-weight: bold;
+  font-size: 14px;
   box-shadow: 10px 10px 10px -1px rgba(0,0,0,0.19);
+margin-top: 8px;
 }
 
 .col-result{
-  padding: 0;
-  width: 300px;
+  width: 500px;
 }
+
 .col-showSel{
-  width: 100px;
+  width: 100%;
 }
 
 .col-btn-auto{
-  margin-top: 50px;
+  margin-top: 5px;
   position: absolute;
 }
 
-.alert alert-warning{
-min-height: 50px;
-font-size: 50px;
+.col-3-9{
+margin-top: 115px;
+margin-left: 40px;
+}
+
+.col-4{
+margin-top: 225px;
+margin-left: 5px;
+}
+
+.col-auto{
+margin-top: 50px;  
+margin-left: 35px;
+}
+
+#msg{
+margin-top: 115px;
 }
