@@ -39,7 +39,7 @@ class App extends React.Component {
 
   resetGame = () => {
     this.newGame()
-    this.setState({ round: 0, win: 0, lose: 0, lastResult: "Volvamos a empezar" });
+    this.setState({ round: 0, win: 0, lose: 0, tie: 0, lastResult: "Volvamos a empezar" });
   }
 
   startMachinePlay = () => {
@@ -57,32 +57,32 @@ class App extends React.Component {
     const machSel = this.state.machineselection;
     const userSel = this.state.userselection;
 
-    if (machSel === userSel) { this.tiedGame(userSel, machSel) } else {
+    if (machSel === userSel) { this.tiedGame() } else {
 
       if ((machSel === 'Tijera' && (userSel === 'Papel' || userSel === 'Lagarto')) ||
         (machSel === 'Papel' && (userSel === 'Piedra' || userSel === 'Spock')) ||
         (machSel === 'Piedra' && (userSel === 'Lagarto' || userSel === 'Tijera')) ||
         (machSel === 'Lagarto' && (userSel === 'Spock' || userSel === 'Papel')) ||
-        (machSel === 'Spock' && (userSel === 'Tijera' || userSel === 'Piedra'))) { this.humanLost(userSel, machSel) } else { this.humnaWin(userSel, machSel) }
+        (machSel === 'Spock' && (userSel === 'Tijera' || userSel === 'Piedra'))) { this.humanLost() } else { this.humnaWin() }
     }
   }
 
-  humanLost = (userSel, machSel) => {
+  humanLost = () => {
     let lose = this.state.lose;
     lose++
-    this.setState({ lose });
-    this.setState({ lastResult: "Perdiste, probá otra vez!", showAlertDanger: true });
+    this.setState({ lose, lastResult: "Perdiste, probá otra vez!", showAlertDanger: true });
   }
 
-  humnaWin = (userSel, machSel) => {
+  humnaWin = () => {
     let win = this.state.win;
     win++
-    this.setState({ win });
-    this.setState({ lastResult: "Bravo, ganaste!", showAlertSucces: true });
+    this.setState({ win, lastResult: "Bravo, ganaste!", showAlertSucces: true });
   }
 
-  tiedGame = (userSel, machSel) => {
-    this.setState({ lastResult: "Ouch se produjo un empate!", showAlertWarning: true });
+  tiedGame = () => {
+    let tie = this.state.tie;
+    tie++
+    this.setState({ tie, lastResult: "Ouch se produjo un empate!", showAlertWarning: true });
   }
 
   waitingMachine = () => {
@@ -107,8 +107,7 @@ class App extends React.Component {
 
   userDoSelection = event => {
     const userselection = event.target.id
-    this.setState({ userselection });
-    this.setState({ showText: true, showOption: false, showButton: false, showAlertInfo: false })
+    this.setState({ userselection, showText: true, showOption: false, showButton: false, showAlertInfo: false })
     this.startMachinePlay();
   }
 
@@ -138,7 +137,6 @@ class App extends React.Component {
 
   mostrarAlerta = () => {
     return (
-      <>
         <div className="row">
           <div>{this.state.showAlertInfo && (<div className="welcome"><div>{this.state.welcomeMsg}</div><div>{this.state.lastResult}</div></div>)}
           </div>
@@ -149,7 +147,6 @@ class App extends React.Component {
           <div>{this.state.showAlertWarning && (<h5 className="alert alert-warning"> {this.state.lastResult} </h5>)}
           </div>
         </div>
-      </>
     )
   }
 
