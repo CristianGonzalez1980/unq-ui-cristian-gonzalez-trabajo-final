@@ -18,8 +18,20 @@ class App extends React.Component {
       win: 0,
       lose: 0,
       showText: false,
+      showOption: true,
+      showButton: true,
+      showCpuText: false,
+      showAlert: false,
+      showAlertDanger: false,
+      showAlertSucces: false,
+      showAlertWarning: false,
+      itemSel: "",
       options: ['Piedra', 'Papel', 'Tijera', 'Lagarto', 'Spock'],
     };
+  }
+
+  newGame = () => {
+    this.setState({ showCpuText: false, showOption: true, showButton: false, showAlertDanger: false, showAlertSucces: false, showAlertWarning: false })
   }
 
   resetGame = () => {
@@ -29,7 +41,6 @@ class App extends React.Component {
     this.setState({ win: 0 });
     this.setState({ lose: 0 });
     this.setState({ lastResult: "Volvamos a empezar" })
-    console.log(this.state.round);
   }
 
   startMachinePlay = () => {
@@ -61,26 +72,27 @@ class App extends React.Component {
     let lose = this.state.lose;
     lose++
     this.setState({ lose });
-    this.setState({ lastResult: userSel + " vs " + machSel + ".  " + "Perdiste, probá otra vez!" });
+    this.setState({ lastResult: "Perdiste, probá otra vez!", showAlertDanger: true });
   }
 
   humnaWin = (userSel, machSel) => {
     let win = this.state.win;
     win++
     this.setState({ win });
-    this.setState({ lastResult: userSel + " vs " + machSel + ".  " + "Bravo, ganaste!" });
+    this.setState({ lastResult: "Bravo, ganaste!", showAlertSucces: true });
   }
 
   tiedGame = (userSel, machSel) => {
-    this.setState({ lastResult: userSel + " vs " + machSel + ".  " + "Ouch se produjo un empate!" });
+    this.setState({ lastResult: "Ouch se produjo un empate!", showAlertWarning: true });
   }
 
   waitingMachine = () => {
-    this.setState({ lastResult: "...Piedra, Papel, Tijera, Lagarto, Spock" });
+    this.setState({ lastResult: "...Piedra, Papel, Tijera, Lagarto, Spock", showAlert: true });
+
     this.machineDoSelection();
     setTimeout(() => {
-      this.checkResult();
-    }, 3000);
+      this.checkResult(); this.setState({ showAlert: false, showButton: true, showCpuText: true })
+    }, 4000);
   }
 
   machineDoSelection = () => {
@@ -97,7 +109,47 @@ class App extends React.Component {
   userDoSelection = event => {
     const userselection = event.target.id
     this.setState({ userselection });
+    this.setState({ showOption: false, showButton: false })
     this.startMachinePlay();
+  }
+
+  mostrarOpcion = (img, text) => {
+    return (
+      <>
+        {
+          this.state.showOption && (<img src={img} alt={text} className="cuadro" id={text} onMouseEnter={() => this.setState({ showText: true, itemSel: text })}
+            onMouseLeave={() => this.setState({ showText: false })} onClick={(event) => this.userDoSelection(event)} />)
+        }
+      </>
+    )
+  }
+
+  mostrarSelecion = (id, fShow, fState, text) => {
+    return (
+      <>
+        <div className="row-sel" id={id}>
+          <div>{text}</div>
+        </div>
+        <div className="row-sel" id={id}>
+          {fShow && (<div className="selText"><span>{fState}</span></div>)}
+        </div>
+      </>
+    )
+  }
+
+  mostrarAlerta = () => {
+    return (
+      <>
+        <div className="row">
+          <div>{this.state.showAlertDanger && (<h5 className="alert alert-danger"> {this.state.lastResult} </h5>)}
+          </div>
+          <div>{this.state.showAlertSucces && (<h5 className="alert alert-success"> {this.state.lastResult} </h5>)}
+          </div>
+          <div>{this.state.showAlertWarning && (<h5 className="alert alert-warning"> {this.state.lastResult} </h5>)}
+          </div>
+        </div>
+      </>
+    )
   }
 
   render() {
@@ -105,43 +157,43 @@ class App extends React.Component {
       <div className="App-super">
         <div className="App-container">
           <header className="App-header">
-            <h5 className="alert alert-warning"> {this.state.lastResult} </h5>
+            {this.mostrarAlerta()}
           </header>
           <body className="App-body">
             <div className="container">
               <div className="row">
                 <div className="col-sel">
-                {this.state.showText && (
-                    <div className="selText">
-                      Tijera
-                    </div>
-                  )}
+                  {this.mostrarSelecion("hum", this.state.showText, this.state.itemSel, "Tu elección: ")}
                 </div>
                 <div className="col-auto">
-                  <img src={tijera} alt="TIJERA" className="cuadro" id="Tijera" onMouseEnter={() => this.setState({ showText: true })}
-                    onMouseLeave={() => this.setState({ showText: false })} onClick={(event) => this.userDoSelection(event)} />
-
+                  {this.mostrarOpcion(tijera, "Tijera")}
                 </div>
-                <div className="col-autoNone">
-
+                <div className="col-sel">
+                  {this.mostrarSelecion("cpu", this.state.showCpuText, this.state.machineselection, "Elección robot: ")}
                 </div>
               </div>
               <div className="row">
                 <div className="col-auto">
-                  <img src={spock} alt="SPOCK" className="cuadro" id="Spock" onClick={(event) => this.userDoSelection(event)} />
+                  {this.mostrarOpcion(spock, "Spock")}
+                </div>
+                <div className="col-btn-auto">
+                  <div>
+                    {this.state.showButton && <button type="button" className="btn-danger" onClick={() => this.newGame()}>Jugar</button>}
+                  </div>
+                  <div>
+                    {this.state.showAlert && <h3 className="alert alert-warning"> {this.state.lastResult} </h3>}
+                  </div>
                 </div>
                 <div className="col-auto">
-                </div>
-                <div className="col-auto">
-                  <img src={papel} alt="PAPEL" className="cuadro" id="Papel" onClick={(event) => this.userDoSelection(event)} />
+                  {this.mostrarOpcion(papel, "Papel")}
                 </div>
               </div>
               <div className="row">
                 <div className="col-auto">
-                  <img src={lagarto} alt="LAGARTO" className="cuadro" id="Lagarto" onClick={(event) => this.userDoSelection(event)} />
+                  {this.mostrarOpcion(lagarto, "Lagarto")}
                 </div>
                 <div className="col-auto">
-                  <img src={piedra} alt="PIEDRA" className="cuadro" id="Piedra" onClick={(event) => this.userDoSelection(event)} />
+                  {this.mostrarOpcion(piedra, "Piedra")}
                 </div>
               </div>
             </div>
